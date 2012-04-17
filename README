@@ -1,1 +1,4 @@
 Soon...
+
+git config checker.check 'all'
+git config checker.check 'ruby, haml, coffeescript'

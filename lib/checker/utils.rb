@@ -27,4 +27,8 @@ class Utils
     system('echo ' + cmd)
     system(cmd)
   end
+
+  def self.get_modules_to_check
+    `git config checker.check`.chomp.split(",").map(&:strip)
+  end
 end
