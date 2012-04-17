@@ -4,9 +4,9 @@ module Checker
     class All
       def self.check
         checked = []
-        constants = Checker::Modules.constants - [:All]
+        constants = Utils.available_modules - ["all"]
         constants.each do |const|
-          klass = "Checker::Modules::#{const.to_s}".constantize
+          klass = "Checker::Modules::#{const.capitalize}".constantize
           checked << klass.check
         end
         checked.all_true?

@@ -28,6 +28,20 @@ class Utils
     system(cmd)
   end
 
+  def self.available_modules
+    Checker::Modules.constants.map(&:to_s).map(&:downcase)
+  end
+
+  def self.check_module_availability(modules)
+    constants = self.available_modules
+    result = modules - (constants & modules)
+    unless result.empty?
+      if block_given?
+        yield(result)
+      end
+    end
+  end
+
   def self.get_modules_to_check
     `git config checker.check`.chomp.split(",").map(&:strip)
   end

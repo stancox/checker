@@ -2,6 +2,8 @@ module Checker
   module Modules
     class Haml
       def self.check
+        puts ">> HAML <<"
+
         files = Utils.files_modified
         files.delete_if {|f| !f.ends_with?(".haml")}
 

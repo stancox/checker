@@ -26,42 +26,34 @@ module Checker
 
       module ClassMethods
         def execute
-          ## no args, execute how it is  stored in git config
           if ARGV.size == 0
             modules = Utils.get_modules_to_check
-
-            ## check all the modules
-            if modules.include?("all")
-              exit (Checker::Modules::All.check ? 0 : 1)
-            else
-              checked = []
-              modules.each do
-                klass = "Checker::Modules::#{modules.downcase.capitalize}".constantize
-                checked << klass.check
-              end
-              exit (checked.all_true? ? 0 : 1)
-            end
+          else
+            modules = ARGV.map(&:downcase)
+          end
+          ## by default lets check all
+          if modules.empty?
+            modules = ["all"]
           end
 
-          # if ARGV.size < 2
-          #   puts "For now only one thing works..."
-          #   puts "checker check haml"
-          #   exit 
-          # end
-          # command = ARGV[0]
-          # which   = ARGV[1]
+          ## check all the modules
+          if modules.include?("all")
+            exit (Checker::Modules::All.check ? 0 : 1)
+          else
+            Utils.check_module_availability(modules) do |result|
+              puts "Modules not available: #{result.join(", ")}.\n"
+              puts "Available: #{Utils.available_modules.join(", ")}\n"
+              puts "Check your git config checker.check\n"
+              exit 1
+            end
 
-          # if which == "all"
-          #   ['haml', 'ruby'].each do |m|
-          #     puts "Checking #{m} files..."
-          #     system("checker check #{m}")
-          #   end
-          # else
-          #   klass = "Checker::Modules::#{which.capitalize}"
-          #   require "checker/modules/#{which.downcase}"
-          
-          #   exit (klass.constantize.check ? 0 : 1)
-          # end
+            checked = []
+            modules.each do |mod|
+              klass = "Checker::Modules::#{mod.downcase.capitalize}".constantize
+              checked << klass.check
+            end
+            exit (checked.all_true? ? 0 : 1)
+          end
         end
       end
     end

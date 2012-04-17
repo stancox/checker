@@ -1,4 +1,4 @@
-require 'checker/core_ext'
+require 'checker'
 require 'checker/cli/execute'
 
 module Checker
