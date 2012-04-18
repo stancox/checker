@@ -8,17 +8,8 @@ class Utils
   end
 
   def self.rvm_command(command)
-    f = File.read(".rvmrc").split("\n").first
-    rvm_version = nil
-    if f.match(/rvm( use|) ([^ ]+)$/)
-      rvm_version = $2
-    end
-    if rvm_version.nil?
-      puts "Cannot determine rvm version"
-      exit 1
-    else
-      puts "Using '#{rvm_version}' version"
-    end
+    rvm_version = `echo $rvm_ruby_string`.chomp
+    puts "Using '#{rvm_version}' version"
     cmd = "$rvm_path/bin/rvm-shell '#{rvm_version}' -c '#{command}'"
     Utils.command cmd
   end
