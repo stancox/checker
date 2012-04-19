@@ -3,7 +3,7 @@ module Checker
     class Ruby
       def self.check
         puts ">> RUBY <<"
-
+        
         files = Utils.files_modified
         files.delete_if {|f| !f.ends_with?(".rb")}
 

@@ -8,7 +8,7 @@ module Checker
 
         files.map! do |f|
           print "Checking #{f} -> "
-          [Pry.check_for_binding_pry(f), Pry.check_for_binding_remote_pry].all_true?
+          [Pry.check_for_binding_pry(f), Pry.check_for_binding_remote_pry(f)].all_true?
         end
 
         files.all_true?
@@ -32,7 +32,7 @@ module Checker
           puts "FAIL #{file} -> found occurence of 'binding.remote_pry'"
           puts result
         end
-        
+
         result.empty?
       end
     end
