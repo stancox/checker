@@ -7,7 +7,7 @@ module Checker
         files = Utils.files_modified
 
         files.map! do |f|
-          print "Checking #{f} -> "
+          puts "Checking #{f}... "
           [Pry.check_for_binding_pry(f), Pry.check_for_binding_remote_pry(f)].all_true?
         end
 
