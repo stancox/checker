@@ -10,7 +10,7 @@ module Checker
         end
 
         files = Utils.files_modified
-        files.delete_if {|f| !f.ends_with?(".scss") or !f.ends_with?(".sass")}
+        files.delete_if {|f| !f.ends_with?(".scss") and !f.ends_with?(".sass")}
 
         files.map! do |f|
           puts "Checking #{f}..."
