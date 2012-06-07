@@ -1,0 +1,18 @@
+=== version 0.0.3 (released 2012-06-07)
+
+* fix for ruby checker
+* added coffeescript checker
+* added sass checker
+
+=== version 0.0.2 (released 2012-04-20)
+
+* added ruby checker
+* added pry checker
+* all checker - checks all checkers
+* git config for selecting checkers
+
+
+=== version 0.0.1 (released 2012-04-03)
+
+* initial version
+* haml checker
