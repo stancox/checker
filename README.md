@@ -12,7 +12,7 @@ To check your source code every time you commit, add to your .git/hooks/pre-comm
 checker
 ```
 
-Don\'t forget to make the hook file executable:
+Don't forget to make the hook file executable:
 
 ``` bash
 chmod +x .git/hooks/pre-commit
