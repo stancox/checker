@@ -5,14 +5,18 @@ class Utils
   end
 
   def self.use_rvm?
-    File.exists?(".rvmrc")
+    File.exists?(".rvmrc") && File.exists?(rvm_shell)
   end
 
   def self.rvm_command(command)
     rvm_version = `echo $rvm_ruby_string`.chomp
     puts "Using '#{rvm_version}' version"
-    cmd = "$rvm_path/bin/rvm-shell '#{rvm_version}' -c '#{command}'"
+    cmd = "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
     Utils.command cmd
+  end
+
+  def self.rvm_shell
+    File.join(ENV.fetch('rvm_path', ''), 'bin/rvm-shell')
   end
 
   def self.command(cmd)
