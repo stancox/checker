@@ -1,23 +1,25 @@
 module Checker
   module Modules
     class Ruby < Base
-      def check
-        puts ">> RUBY <<"
-        
-        files.select {|f| f.ends_with?(".rb")}.map! do |f|
-          print "Checking #{f}... "
-          check_one(f)
-        end
-
-        files.all_true?
-      end
-
+      extensions 'rb'
+      private
       def check_one(file)
         if use_rvm?
           rvm_command("ruby -c #{file}")
         else
           command("ruby -c #{file}")
         end
+      end
+
+      def use_rvm?
+        File.exists?(".rvmrc")
+      end
+
+      def rvm_command(command)
+        rvm_version = `echo $rvm_ruby_string`.chomp
+        puts "Using '#{rvm_version}' version"
+        cmd = "$rvm_path/bin/rvm-shell '#{rvm_version}' -c '#{command}'"
+        command cmd
       end
     end
   end

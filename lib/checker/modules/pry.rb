@@ -1,15 +1,11 @@
 module Checker
   module Modules
     class Pry < Base
-      def check
-        puts ">> PRY <<"
+      extensions 'rb'
 
-        files.map! do |f|
-          puts "Checking #{f}... "
-          [check_for_binding_pry(f), check_for_binding_remote_pry(f)].all_true?
-        end
-
-        files.all_true?
+      private
+      def check_one file
+        [check_for_binding_pry(file), check_for_binding_remote_pry(file)].all_true?
       end
 
       def check_for_binding_pry(file)
