@@ -1,14 +1,10 @@
 module Checker
   module Modules
     class Ruby < Base
-      include ::Checker::Utils
       def check
         puts ">> RUBY <<"
         
-        files = files_modified
-        files.delete_if {|f| !f.ends_with?(".rb")}
-
-        files.map! do |f|
+        files.select {|f| f.ends_with?(".rb")}.map! do |f|
           print "Checking #{f}... "
           check_one(f)
         end

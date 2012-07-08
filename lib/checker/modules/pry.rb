@@ -1,11 +1,8 @@
 module Checker
   module Modules
     class Pry < Base
-      include ::Checker::Utils
       def check
         puts ">> PRY <<"
-
-        files = files_modified
 
         files.map! do |f|
           puts "Checking #{f}... "

@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Base
+    class Base < Struct.new(:files)
       def use_rvm?
         File.exists?(".rvmrc")
       end

@@ -2,7 +2,6 @@ require 'checker'
 
 module Checker
   class CLI
-    include ::Checker::Utils
     class << self
     def execute
       if ARGV.size == 0
@@ -23,9 +22,10 @@ module Checker
       end
 
       checked = []
+      files = modified_files
       modules.each do |mod|
         klass = "Checker::Modules::#{mod.downcase.capitalize}".constantize
-        checked << klass.new.check
+        checked << klass.new(files.dup).check
       end
       exit (checked.all_true? ? 0 : 1)
     end
@@ -47,6 +47,10 @@ module Checker
 
     def get_modules_to_check
       `git config checker.check`.chomp.split(",").map(&:strip)
+    end
+
+    def modified_files
+      @modified_files ||= `git status --porcelain | egrep "^(A |M |R ).*" | awk ' { if ($3 == "->") print $4; else print $2 } '`.split
     end
     end
   end

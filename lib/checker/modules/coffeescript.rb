@@ -1,7 +1,6 @@
 module Checker
   module Modules
     class Coffeescript < Base
-      include ::Checker::Utils
       def check
         puts ">> Coffeescript <<"
 
@@ -10,10 +9,7 @@ module Checker
           return true
         end
 
-        files = files_modified
-        files.delete_if {|f| !f.ends_with?(".coffee")}
-
-        files.map! do |f|
+        files.select {|f| f.ends_with?(".coffee")}.map! do |f|
           puts "Checking #{f}..."
           check_one(f)
         end
