@@ -25,9 +25,10 @@ module Checker
       end
 
       module ClassMethods
+        include ::Checker::Utils
         def execute
           if ARGV.size == 0
-            modules = Utils.get_modules_to_check
+            modules = get_modules_to_check
           else
             modules = ARGV.map(&:downcase)
           end
@@ -40,7 +41,7 @@ module Checker
           if modules.include?("all")
             exit (Checker::Modules::All.check ? 0 : 1)
           else
-            Utils.check_module_availability(modules) do |result|
+            check_module_availability(modules) do |result|
               puts "Modules not available: #{result.join(", ")}.\n"
               puts "Available: #{Utils.available_modules.join(", ")}\n"
               puts "Check your git config checker.check\n"

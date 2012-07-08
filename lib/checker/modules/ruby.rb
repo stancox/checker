@@ -1,25 +1,26 @@
 module Checker
   module Modules
-    class Ruby
+    class Ruby 
+      extend ::Checker::Utils
       def self.check
         puts ">> RUBY <<"
         
-        files = Utils.files_modified
+        files = files_modified
         files.delete_if {|f| !f.ends_with?(".rb")}
 
         files.map! do |f|
           puts "Checking #{f}..."
-          Ruby.check_one(f)
+          check_one(f)
         end
 
         files.all_true?
       end
 
       def self.check_one(file)
-        if Utils.use_rvm?
-          Utils.rvm_command("ruby -c #{file}")
+        if use_rvm?
+          rvm_command("ruby -c #{file}")
         else
-          Utils.command("ruby -c #{file}")
+          command("ruby -c #{file}")
         end
       end
     end

@@ -1,6 +1,7 @@
 module Checker
   module Modules
     class Coffeescript
+      extend ::Checker::Utils
       def self.check
         puts ">> Coffeescript <<"
 
@@ -9,12 +10,12 @@ module Checker
           return true
         end
 
-        files = Utils.files_modified
+        files = files_modified
         files.delete_if {|f| !f.ends_with?(".coffee")}
 
         files.map! do |f|
           puts "Checking #{f}..."
-          Coffeescript.check_one(f)
+          check_one(f)
         end
 
         files.all_true?

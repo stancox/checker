@@ -1,10 +1,11 @@
 module Checker
   module Modules
     class Haml
+      extend ::Checker::Utils
       def self.check
         puts ">> HAML <<"
 
-        files = Utils.files_modified
+        files = files_modified
         files.delete_if {|f| !f.ends_with?(".haml")}
 
         files.map! do |f|

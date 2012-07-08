@@ -1,6 +1,7 @@
 module Checker
   module Modules
     class Sass
+      extend ::Checker::Utils
       def self.check
         puts ">> Sass <<"
 
@@ -9,7 +10,7 @@ module Checker
           return true
         end
 
-        files = Utils.files_modified
+        files = files_modified
         files.delete_if {|f| !f.ends_with?(".scss") and !f.ends_with?(".sass")}
 
         files.map! do |f|

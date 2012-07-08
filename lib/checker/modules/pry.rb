@@ -1,10 +1,11 @@
 module Checker
   module Modules
     class Pry
+      extend ::Checker::Utils
       def self.check
         puts ">> PRY <<"
 
-        files = Utils.files_modified
+        files = files_modified
 
         files.map! do |f|
           puts "Checking #{f}... "
