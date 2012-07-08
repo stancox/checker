@@ -39,11 +39,11 @@ module Checker
 
           ## check all the modules
           if modules.include?("all")
-            exit (Checker::Modules::All.check ? 0 : 1)
+            exit (Checker::Modules::All.new.check ? 0 : 1)
           else
             check_module_availability(modules) do |result|
               puts "Modules not available: #{result.join(", ")}.\n"
-              puts "Available: #{Utils.available_modules.join(", ")}\n"
+              puts "Available: #{available_modules.join(", ")}\n"
               puts "Check your git config checker.check\n"
               exit 1
             end
@@ -51,7 +51,7 @@ module Checker
             checked = []
             modules.each do |mod|
               klass = "Checker::Modules::#{mod.downcase.capitalize}".constantize
-              checked << klass.check
+              checked << klass.new.check
             end
             exit (checked.all_true? ? 0 : 1)
           end

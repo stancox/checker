@@ -1,8 +1,8 @@
 module Checker
   module Modules
     class Haml
-      extend ::Checker::Utils
-      def self.check
+      include ::Checker::Utils
+      def check
         puts ">> HAML <<"
 
         files = files_modified
@@ -10,13 +10,13 @@ module Checker
 
         files.map! do |f|
           print "Checking #{f}... "
-          Haml.check_one(f)
+          check_one(f)
         end
 
         files.all_true?
       end
 
-      def self.check_one(file)
+      def check_one(file)
         system("haml --check #{file}")
       end
     end

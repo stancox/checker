@@ -1,11 +1,11 @@
 module Checker
   module Modules
     class Coffeescript
-      extend ::Checker::Utils
-      def self.check
+      include ::Checker::Utils
+      def check
         puts ">> Coffeescript <<"
 
-        unless Coffeescript.check_for_executable
+        unless check_for_executable
           puts "coffee executable NOT FOUND, OMITTING..."
           return true
         end
@@ -21,11 +21,11 @@ module Checker
         files.all_true?
       end
 
-      def self.check_one(file)
+      def check_one(file)
         system("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
       end
 
-      def self.check_for_executable
+      def check_for_executable
         cmd = "coffee -v"
         system(cmd)
         $?.exitstatus == 0

@@ -1,8 +1,8 @@
 module Checker
   module Modules
     class Ruby 
-      extend ::Checker::Utils
-      def self.check
+      include ::Checker::Utils
+      def check
         puts ">> RUBY <<"
         
         files = files_modified
@@ -16,7 +16,7 @@ module Checker
         files.all_true?
       end
 
-      def self.check_one(file)
+      def check_one(file)
         if use_rvm?
           rvm_command("ruby -c #{file}")
         else

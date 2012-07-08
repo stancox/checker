@@ -1,11 +1,11 @@
 module Checker
   module Modules
     class Sass
-      extend ::Checker::Utils
-      def self.check
+      include ::Checker::Utils
+      def check
         puts ">> Sass <<"
 
-        unless Sass.check_for_executable
+        unless check_for_executable
           puts "sass executable NOT FOUND, OMITTING..."
           return true
         end
@@ -15,17 +15,17 @@ module Checker
 
         files.map! do |f|
           puts "Checking #{f}..."
-          Sass.check_one(f)
+          check_one(f)
         end
 
         files.all_true?
       end
 
-      def self.check_one(file)
+      def check_one(file)
         system("sass #{file} > /dev/null")
       end
 
-      def self.check_for_executable
+      def check_for_executable
         cmd = "sass -v"
         system(cmd)
         $?.exitstatus == 0
