@@ -9,7 +9,7 @@ module Checker
         files.delete_if {|f| !f.ends_with?(".haml")}
 
         files.map! do |f|
-          puts "Checking #{f}..."
+          print "Checking #{f}... "
           Haml.check_one(f)
         end
 

@@ -17,7 +17,6 @@ module Utils
   end
 
   def command(cmd)
-    system('echo ' + cmd)
     system(cmd)
   end
 
