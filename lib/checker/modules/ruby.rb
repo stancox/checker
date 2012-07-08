@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Ruby 
+    class Ruby < Base
       include ::Checker::Utils
       def check
         puts ">> RUBY <<"

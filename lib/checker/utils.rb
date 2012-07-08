@@ -5,23 +5,8 @@ module Utils
     @files_modified.dup
   end
 
-  def use_rvm?
-    File.exists?(".rvmrc")
-  end
-
-  def rvm_command(command)
-    rvm_version = `echo $rvm_ruby_string`.chomp
-    puts "Using '#{rvm_version}' version"
-    cmd = "$rvm_path/bin/rvm-shell '#{rvm_version}' -c '#{command}'"
-    command cmd
-  end
-
-  def command(cmd)
-    system(cmd)
-  end
-
   def available_modules
-    Checker::Modules.constants.map(&:to_s).map(&:downcase)
+    Checker::Modules.constants.map(&:to_s).map(&:downcase) - ['base']
   end
 
   def check_module_availability(modules)

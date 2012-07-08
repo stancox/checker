@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Pry
+    class Pry < Base
       include ::Checker::Utils
       def check
         puts ">> PRY <<"

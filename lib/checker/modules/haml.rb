@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Haml
+    class Haml < Base
       include ::Checker::Utils
       def check
         puts ">> HAML <<"

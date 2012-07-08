@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Sass
+    class Sass < Base
       include ::Checker::Utils
       def check
         puts ">> Sass <<"

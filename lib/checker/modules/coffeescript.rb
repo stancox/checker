@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class Coffeescript
+    class Coffeescript < Base
       include ::Checker::Utils
       def check
         puts ">> Coffeescript <<"

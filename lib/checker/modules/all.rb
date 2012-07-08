@@ -1,6 +1,6 @@
 module Checker
   module Modules
-    class All
+    class All < Base
       include ::Checker::Utils
       def check
         checked = []
