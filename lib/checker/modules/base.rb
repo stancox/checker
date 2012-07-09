@@ -2,7 +2,7 @@ module Checker
   module Modules
     class Base < Struct.new(:files)
       def check
-        puts "[ #{self.class.to_s.split('::').last} ]"
+        print_module_header
         prepare_check
         check_executable
         select_proper_files
@@ -15,6 +15,10 @@ module Checker
       end
 
       private
+
+      def print_module_header
+        puts "[ #{name} ]"
+      end
 
       def prepare_check
         @files_to_check = []
@@ -55,6 +59,10 @@ module Checker
 
       def command(cmd)
         system(cmd)
+      end
+
+      def name
+        self.class.to_s.split('::').last.upcase
       end
     end
   end
