@@ -1,3 +1,5 @@
+require 'colorize'
+
 require 'checker/core_ext'
 
 require "checker/modules/base"

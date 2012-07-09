@@ -12,8 +12,10 @@ module Checker
         result = `grep -n "binding\\.pry" #{file}`.chomp
 
         unless result.empty?
-          puts "FAIL #{file} found occurence of 'binding.pry'"
+          puts " pry -> FAIL, ".red
           puts result
+        else
+          print " pry -> OK, ".green
         end
 
         result.empty?
@@ -23,9 +25,12 @@ module Checker
         result = `grep -n "binding\\.remote_pry" #{file}`.chomp
 
         unless result.empty?
-          puts "FAIL #{file} -> found occurence of 'binding.remote_pry'"
+          puts " remote_pry -> FAIL".red
           puts result
+        else
+          print " remote_pry -> OK".green
         end
+        puts ""
 
         result.empty?
       end
