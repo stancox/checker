@@ -1,7 +1,6 @@
 module Checker
   module Modules
     class Pry < Base
-      extensions 'rb'
 
       private
       def check_one file

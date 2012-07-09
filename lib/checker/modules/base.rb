@@ -39,9 +39,13 @@ module Checker
       end
 
       def select_proper_files
-        @files_to_check = self.files.select { |f|
-          self.class.extensions.map { |ex| f.ends_with?(ex) }.any?
-        }
+        @files_to_check = self.files
+        if self.class.extensions.any?
+          @files_to_check = @files_to_check.select { |f|
+            self.class.extensions.map { |ex| f.ends_with?(ex) }.any?
+          }
+        end
+        @files_to_check
       end
 
       def check_all_files
