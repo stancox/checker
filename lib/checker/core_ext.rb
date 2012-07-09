@@ -1,5 +1,3 @@
-require 'checker/utils'
-
 class CoreExt
   def self.constantize(camel_cased_word)
     names = camel_cased_word.split('::')

@@ -1,21 +1,15 @@
 module Checker
   module Modules
-    class Pry
-      def self.check
-        Utils.color("> binding.pry occurence <\n", :light_blue)
+    class Pry < Base
+      extensions 'rb'
 
-        files = Utils.files_modified
-
-        files.map! do |f|
-          Utils.color("Checking #{f}...", :yellow)
-          [Pry.check_for_binding_pry(f), Pry.check_for_binding_remote_pry(f)].all_true?
-        end
-
-        files.all_true?
+      private
+      def check_one file
+        [check_for_binding_pry(file), check_for_binding_remote_pry(file)].all_true?
       end
 
-      def self.check_for_binding_pry(file)
-        result = `grep -n "binding.pry" #{file}`.chomp
+      def check_for_binding_pry(file)
+        result = `grep -n "binding\\.pry" #{file}`.chomp
 
         unless result.empty?
           puts " pry -> FAIL, ".red
@@ -27,8 +21,8 @@ module Checker
         result.empty?
       end
 
-      def self.check_for_binding_remote_pry(file)
-        result = `grep -n "binding.remote_pry" #{file}`.chomp
+      def check_for_binding_remote_pry(file)
+        result = `grep -n "binding\\.remote_pry" #{file}`.chomp
 
         unless result.empty?
           puts " remote_pry -> FAIL".red
