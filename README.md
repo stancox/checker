@@ -4,6 +4,20 @@ A collection of modules for which every is designed to check syntax in files to 
 
 ## Usage
 
+### Install
+Checker is available in rubygems, so you just need to do:
+```
+gem install checker
+```
+If you are using bundler, you can add it to your project via `Gemfile` file (best to put it under `:development` group):
+```ruby
+group :development do
+  gem 'checker'
+end
+```
+
+After installing the gem please follow [Git hook](#git-hook) section for further details.
+
 ### Git hook
 
 To check your source code every time you commit, add to your `.git/hooks/pre-commit` line:
