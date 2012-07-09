@@ -9,7 +9,7 @@ module Checker
       end
 
       def check_for_binding_pry(file)
-        result = `grep -n "binding.pry" #{file}`.chomp
+        result = `grep -n "binding\\.pry" #{file}`.chomp
 
         unless result.empty?
           puts "FAIL #{file} found occurence of 'binding.pry'"
@@ -20,7 +20,7 @@ module Checker
       end
 
       def check_for_binding_remote_pry(file)
-        result = `grep -n "binding.remote_pry" #{file}`.chomp
+        result = `grep -n "binding\\.remote_pry" #{file}`.chomp
 
         unless result.empty?
           puts "FAIL #{file} -> found occurence of 'binding.remote_pry'"
