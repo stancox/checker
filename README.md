@@ -47,7 +47,6 @@ FAIL app/models/user.rb found occurence of 'binding.pry'
 To check only specific filetypes on commit, use `git config` :
 
 ``` bash
-git config checker.check 'all'
 git config checker.check 'ruby, haml, coffeescript'
 ```
 
