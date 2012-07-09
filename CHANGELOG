@@ -1,3 +1,7 @@
+=== version 0.0.4.2 (released 2012-07-09)
+
+* another fix (i hope last one) - pry checking all files, not only .rb
+
 === version 0.0.4.1 (released 2012-07-09)
 
 * some refactoring (thx again Tomasz Pewiński)
