@@ -16,7 +16,7 @@ module Checker
 
       check_module_availability(modules) do |result|
         puts "Modules not available: #{result.join(", ")}.\n"
-        puts "Available: #{available_modules.join(", ")}\n"
+        puts "Available: all, #{available_modules.join(", ")}\n"
         puts "Check your git config checker.check\n"
         exit 1
       end
@@ -36,8 +36,7 @@ module Checker
     end
 
     def check_module_availability(modules)
-      constants = available_modules
-      result = modules - (constants & modules)
+      result = modules - available_modules
       unless result.empty?
         if block_given?
           yield(result)
