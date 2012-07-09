@@ -14,13 +14,29 @@ class Utils
 
   def self.rvm_command(command)
     rvm_version = `echo $rvm_ruby_string`.chomp
-    puts "Using '#{rvm_version}' version"
+    # puts "Using '#{rvm_version}' version"
     cmd = "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
     cmd
   end
 
   def self.rvm_shell
     File.join(ENV.fetch('rvm_path', ''), 'bin/rvm-shell')
+  end
+
+  def self.show_output(exitstatus, options)
+    unless options[:show_output] == false
+      if exitstatus
+        puts " [OK]".green
+      else
+        puts " [FAIL]".red
+      end
+    end
+  end
+
+  def self.plain_command(cmd, options = {})
+    exitstatus = system(cmd)
+    Utils.show_output(exitstatus, options)
+    exitstatus
   end
 
   def self.command(cmd, options = {})
@@ -31,11 +47,14 @@ class Utils
     end
 
     cmd = Utils.rvm_command(cmd) if Utils.use_rvm?
-    Utils.execute(cmd)
+    cmd << " #{options[:append]}" if options[:append]
+    exitstatus = Utils.execute(cmd)
+    Utils.show_output(exitstatus, options)
+    exitstatus
   end
 
   def self.execute(cmd)
-    system("echo #{cmd}")
+    # system("echo #{cmd}")
     system(cmd)
   end
 
@@ -56,4 +75,9 @@ class Utils
   def self.get_modules_to_check
     `git config checker.check`.chomp.split(",").map(&:strip)
   end
+
+  def self.color(str, color)
+    print str.colorize(color)
+  end
 end
+

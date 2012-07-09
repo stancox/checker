@@ -1,5 +1,6 @@
-require 'checker/core_ext'
+require 'colorize'
 
+require 'checker/core_ext'
 
 require "checker/modules/all"
 require "checker/modules/ruby"

@@ -2,13 +2,13 @@ module Checker
   module Modules
     class Haml
       def self.check
-        puts ">> HAML <<"
+        Utils.color("> HAML syntax <\n", :light_blue)
 
         files = Utils.files_modified
         files.delete_if {|f| !f.ends_with?(".haml")}
 
         files.map! do |f|
-          puts "Checking #{f}..."
+          Utils.color("Checking #{f}...", :yellow)
           Haml.check_one(f)
         end
 
@@ -16,7 +16,7 @@ module Checker
       end
 
       def self.check_one(file)
-        system("haml --check #{file}")
+        Utils.plain_command("haml #{file} > /dev/null")
       end
     end
   end

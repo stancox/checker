@@ -2,10 +2,10 @@ module Checker
   module Modules
     class Sass
       def self.check
-        puts ">> Sass <<"
+        Utils.color("> Sass syntax <\n", :light_blue)
 
         unless Sass.check_for_executable
-          puts "sass executable NOT FOUND, OMITTING..."
+          Utils.color("sass executable NOT FOUND, OMITTING...\n", :magenta)
           return true
         end
 
@@ -13,7 +13,7 @@ module Checker
         files.delete_if {|f| !f.ends_with?(".scss") and !f.ends_with?(".sass")}
 
         files.map! do |f|
-          puts "Checking #{f}..."
+          Utils.color("Checking #{f}...", :yellow)
           Sass.check_one(f)
         end
 
@@ -21,14 +21,14 @@ module Checker
       end
 
       def self.check_one(file)
-        cmd = "sass #{file} > /dev/null"
-        Utils.command(cmd, :use_bundler => true)
+        cmd = "sass #{file}"
+        Utils.command(cmd, :use_bundler => true, :append => ">> /dev/null")
       end
 
       def self.check_for_executable
         return @exitstatus unless @exitstatus.nil?
         cmd = "sass -v"
-        Utils.command(cmd, :use_bundler => true)
+        Utils.command(cmd, :use_bundler => true, :show_output => false, :append => ">> /dev/null")
         @exitstatus = ($?.exitstatus == 0)
       end
     end

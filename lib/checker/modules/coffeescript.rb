@@ -2,10 +2,10 @@ module Checker
   module Modules
     class Coffeescript
       def self.check
-        puts ">> Coffeescript <<"
+        Utils.color("> Coffeescript syntax <\n", :light_blue)
 
         unless Coffeescript.check_for_executable
-          puts "coffee executable NOT FOUND, OMITTING..."
+          Utils.color("coffee executable NOT FOUND, OMITTING...\n", :yellow)
           return true
         end
 
@@ -13,7 +13,7 @@ module Checker
         files.delete_if {|f| !f.ends_with?(".coffee")}
 
         files.map! do |f|
-          puts "Checking #{f}..."
+          Utils.color("Checking #{f}...", :yellow)
           Coffeescript.check_one(f)
         end
 
@@ -21,7 +21,7 @@ module Checker
       end
 
       def self.check_one(file)
-        system("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
+        Utils.plain_command("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
       end
 
       def self.check_for_executable
