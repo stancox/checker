@@ -4,6 +4,10 @@ class Utils
     @files_modified.dup
   end
 
+  def self.use_bundler?
+    File.exists?("Gemfile.lock")
+  end
+
   def self.use_rvm?
     File.exists?(".rvmrc") && File.exists?(rvm_shell)
   end
@@ -12,15 +16,26 @@ class Utils
     rvm_version = `echo $rvm_ruby_string`.chomp
     puts "Using '#{rvm_version}' version"
     cmd = "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
-    Utils.command cmd
+    cmd
   end
 
   def self.rvm_shell
     File.join(ENV.fetch('rvm_path', ''), 'bin/rvm-shell')
   end
 
-  def self.command(cmd)
-    system('echo ' + cmd)
+  def self.command(cmd, options = {})
+    if options[:use_bundler] == true
+      if Utils.use_bundler?
+        cmd = "bundle exec #{cmd}"
+      end
+    end
+
+    cmd = Utils.rvm_command(cmd) if Utils.use_rvm?
+    Utils.execute(cmd)
+  end
+
+  def self.execute(cmd)
+    system("echo #{cmd}")
     system(cmd)
   end
 

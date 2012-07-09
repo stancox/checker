@@ -16,11 +16,7 @@ module Checker
       end
 
       def self.check_one(file)
-        if Utils.use_rvm?
-          Utils.rvm_command("ruby -c #{file}")
-        else
-          Utils.command("ruby -c #{file}")
-        end
+        Utils.command("ruby -c #{file}")
       end
     end
   end

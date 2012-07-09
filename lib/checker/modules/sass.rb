@@ -21,13 +21,15 @@ module Checker
       end
 
       def self.check_one(file)
-        system("sass #{file} > /dev/null")
+        cmd = "sass #{file} > /dev/null"
+        Utils.command(cmd, :use_bundler => true)
       end
 
       def self.check_for_executable
+        return @exitstatus unless @exitstatus.nil?
         cmd = "sass -v"
-        system(cmd)
-        $?.exitstatus == 0
+        Utils.command(cmd, :use_bundler => true)
+        @exitstatus = ($?.exitstatus == 0)
       end
     end
   end
