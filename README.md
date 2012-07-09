@@ -21,7 +21,7 @@ After installing the gem please follow [Git hook](#git-hook) section for further
 ### Git hook
 
 #### prepare-commit-msg hook
-If you want every commit be appended with checker approved icon instead (:checkered_flag:) add to your `.git/hooks/prepare-commit-msg` following:
+If you want every commit be appended with checker approved icon (:checkered_flag:) add to your `.git/hooks/prepare-commit-msg` following:
 
 ``` bash
 #!/bin/bash
