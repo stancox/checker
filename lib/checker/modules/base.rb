@@ -4,7 +4,7 @@ module Checker
       def check
         print_module_header
         prepare_check
-        check_executable
+        check_executable or return true
         select_proper_files
         check_all_files
         valid?
@@ -26,8 +26,11 @@ module Checker
       end
 
       def check_executable
-        unless check_for_executable
+        if check_for_executable
+          true
+        else
           puts "executable not found, skipping..."
+          false
         end
       end
 
