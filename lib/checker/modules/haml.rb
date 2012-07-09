@@ -4,7 +4,7 @@ module Checker
       extensions 'haml'
       private
       def check_one(file)
-        plain_command("haml #{file} > /dev/null")
+        plain_command("haml --check #{file} >> /dev/null")
       end
     end
   end
