@@ -117,9 +117,7 @@ module Checker
 
       def rvm_command(command)
         rvm_version = `echo $rvm_ruby_string`.chomp
-        puts "Using '#{rvm_version}' version"
-        cmd = "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
-        command cmd
+        "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
       end
     end
   end
