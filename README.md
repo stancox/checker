@@ -69,3 +69,11 @@ git config checker.check 'ruby, haml, coffeescript'
 ```
 
 Available options are: ruby, haml, pry, coffeescript, sass
+
+### Dependencies
+
+For various modules to work you may need to install additional dependencies:
+
+* coffeescript - `npm install -g coffee-script` - see https://github.com/jashkenas/coffee-script/
+* javascript - `npm install -g jshint` - see https://github.com/jshint/node-jshint/#install
+* haml & sass - `gem install haml` `gem install sass`
