@@ -46,7 +46,7 @@ module Checker
         @files_to_check = self.files
         if self.class.extensions.any?
           @files_to_check = @files_to_check.select { |f|
-            self.class.extensions.map { |ex| f.ends_with?(ex) }.any?
+            self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
           }
         end
         @files_to_check
