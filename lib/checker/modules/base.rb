@@ -20,6 +20,10 @@ module Checker
         color "[ #{name} ]\n", :light_blue
       end
 
+      def dependency_message
+        "Executable not found, skipping...\n"
+      end
+
       def prepare_check
         @files_to_check = []
         @results = []
@@ -29,7 +33,7 @@ module Checker
         if check_for_executable
           true
         else
-          color "executable not found, skipping...\n", :magenta
+          color dependency_message, :magenta
           false
         end
       end
@@ -100,7 +104,7 @@ module Checker
       end
 
       def color(str, color)
-        print str.colorize(color) 
+        print str.colorize(color) if str.length > 0
       end
 
       def name
