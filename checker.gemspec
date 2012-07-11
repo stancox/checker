@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'checker'
-  s.version     = '0.0.4.2'
-  s.date        = '2012-07-09'
+  s.version     = '0.0.5'
+  s.date        = '2012-07-11'
   s.summary     = "Syntax checker for various files"
   s.description = "A collection of modules which every is designed to check syntax for specific files."
   s.authors     = ["Jacek Jakubik"]

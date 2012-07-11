@@ -1,3 +1,11 @@
+=== version 0.0.5 (released 2012-07-09)
+
+* depencendy message - if executable not found, 
+  then proper message is displayed
+  where to fetch executable for module
+* fix ruby module, it should check only .rb files now
+* adding javascript checker using jsl (thx to Tomasz "pewniak747" Pewiński)
+
 === version 0.0.4.2 (released 2012-07-09)
 
 * another fix (i hope last one) - pry checking all files, not only .rb
