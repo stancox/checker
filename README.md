@@ -75,5 +75,5 @@ Available options are: ruby, haml, pry, coffeescript, sass
 For various modules to work you may need to install additional dependencies:
 
 * coffeescript - `npm install -g coffee-script` - see https://github.com/jashkenas/coffee-script/
-* javascript - `npm install -g jshint` - see https://github.com/jshint/node-jshint/#install
+* javascript - install jsl binary - see http://www.javascriptlint.com/download.htm
 * haml & sass - `gem install haml` `gem install sass`
