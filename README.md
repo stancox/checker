@@ -1,4 +1,4 @@
-# Checker
+# Checker [![Build Status](https://secure.travis-ci.org/netguru/checker.png?branch=master)](http://travis-ci.org/netguru/checker)
 
 A collection of modules for which every is designed to check syntax in files to be commited via git.
 
