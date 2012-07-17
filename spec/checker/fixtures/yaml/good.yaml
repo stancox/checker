@@ -1,0 +1,18 @@
+defaults: &defaults
+  mobile_ipad: "iPad"
+  mobile_agents:
+    - "AppleWebKit.+Mobile"
+    - "webOS"
+    - "SymbianOS"
+    - "AppleWebKit.+midori"
+  new_search_config:
+    options:
+      suffix: "/search"
+    params:
+      a: "a"
+      b: "b"
+
+test:
+  <<: *defaults
+  discount: 0.12
+  host: test.test
