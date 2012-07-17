@@ -5,7 +5,11 @@ describe Checker::Modules::Yaml do
     files = ['a.rb', 'b.js.erb', 'c.r', 'd.yml', 'e.yaml']
     mod = Checker::Modules::Yaml.new(files)
     mod.stub(:check_one).and_return(true)
-    mod.should_receive(:check_one).twice
+    mod.should_receive(:check_one).with('d.yml')
+    mod.should_receive(:check_one).with('e.yaml')
+    mod.should_not_receive(:check_one).with('a.rb')
+    mod.should_not_receive(:check_one).with('b.js.erb')
+    mod.should_not_receive(:check_one).with('c.r')
     mod.check 
   end
 
