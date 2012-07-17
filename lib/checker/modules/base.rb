@@ -88,7 +88,7 @@ module Checker
         exitstatus
       end
 
-      def show_output(exitstatus, options)
+      def show_output(exitstatus, options = {})
         unless options[:show_output] == false
           if exitstatus
             puts " [OK]".green
