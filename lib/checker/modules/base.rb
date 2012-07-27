@@ -37,11 +37,13 @@ module Checker
 
       def files_to_check
         @files_to_check ||= begin
-          files = self.files
-          files.select! { |f|
-            self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
-          } if self.class.extensions.any?
-          files
+          if self.class.extensions.any?
+            self.files.select { |f|
+              self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
+            }
+          else
+            self.files
+          end
         end
       end
 
