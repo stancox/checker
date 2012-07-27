@@ -3,9 +3,7 @@ module Checker
     class Base < Struct.new(:files)
       def check
         print_module_header
-        prepare_check
         check_executable or return true
-        select_proper_files
         check_all_files
         valid?
       end
@@ -24,11 +22,6 @@ module Checker
         "Executable not found, skipping...\n"
       end
 
-      def prepare_check
-        @files_to_check = []
-        @results = []
-      end
-
       def check_executable
         if check_for_executable
           true
@@ -42,19 +35,19 @@ module Checker
         true
       end
 
-      def select_proper_files
-        @files_to_check = self.files
-        if self.class.extensions.any?
-          @files_to_check = @files_to_check.select { |f|
+      def files_to_check
+        @files_to_check ||= begin
+          files = self.files
+          files.select! { |f|
             self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
-          }
+          } if self.class.extensions.any?
+          files
         end
-        @files_to_check
       end
 
       def check_all_files
         with_checker_cache do
-          @results = @files_to_check.map do |file_name|
+          @results = files_to_check.map do |file_name|
             color "Checking #{file_name}...", :yellow
             check_one_file(file_name)
           end
