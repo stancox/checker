@@ -8,4 +8,5 @@ notifications:
   email:
     recipients:
       - jacek.jakubik@netguru.pl
+      - tomasz.pewinski@netguru.pl
 
