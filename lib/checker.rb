@@ -1,4 +1,5 @@
 require 'colorize'
+require 'digest/md5'
 
 require 'checker/core_ext'
 

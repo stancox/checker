@@ -53,10 +53,18 @@ module Checker
       end
 
       def check_all_files
-        @results = @files_to_check.map do |file|
-          color "Checking #{file}...", :yellow
-          check_one(file)
+        with_checker_cache do
+          @results = @files_to_check.map do |file_name|
+            color "Checking #{file_name}...", :yellow
+            check_one_file(file_name)
+          end
         end
+      end
+
+      def check_one_file file_name
+        checksum = ::Digest::MD5.hexdigest(file_name)
+        checkout_file(file_name, checksum)
+        check_one(checkout_file_name(checksum))
       end
 
       def self.extensions *args
@@ -98,7 +106,6 @@ module Checker
         end
       end
 
-
       def execute(cmd)
         system(cmd)
       end
@@ -112,7 +119,7 @@ module Checker
       end
 
       def use_bundler?
-        File.exists?("Gemfile.lock") 
+        File.exists?("Gemfile.lock")
       end
 
       def use_rvm?
@@ -126,6 +133,23 @@ module Checker
       def rvm_command(command)
         rvm_version = `echo $rvm_ruby_string`.chomp
         "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
+      end
+
+      def with_checker_cache
+        begin
+          `mkdir .checker-cache`
+          yield if block_given?
+        ensure
+          `rm -rf .checker-cache > /dev/null 2>&1`
+        end
+      end
+
+      def checkout_file file_name, target
+        `git show :0:#{file_name} > #{checkout_file_name(target)} 2>/dev/null`
+      end
+
+      def checkout_file_name target
+        ".checker-cache/#{target}"
       end
     end
   end
