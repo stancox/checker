@@ -3,6 +3,7 @@ module Checker
     class Base < Struct.new(:files)
       def check
         print_module_header
+        check_files_existing or return true
         check_executable or return true
         check_all_files
         valid?
@@ -20,6 +21,10 @@ module Checker
 
       def dependency_message
         "Executable not found, skipping...\n"
+      end
+
+      def check_files_existing
+        files_to_check.any?
       end
 
       def check_executable
