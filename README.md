@@ -68,7 +68,7 @@ To check only specific filetypes on commit, use `git config` :
 git config checker.check 'ruby, haml, coffeescript'
 ```
 
-Available options are: ruby, haml, pry, coffeescript, sass
+Available options are: ruby, haml, pry, coffeescript, sass, slim
 
 ### Dependencies
 
