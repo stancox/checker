@@ -68,7 +68,7 @@ To check only specific filetypes on commit, use `git config` :
 git config checker.check 'ruby, haml, coffeescript'
 ```
 
-Available options are: ruby, haml, pry, coffeescript, sass
+Available options are: ruby, haml, pry, coffeescript, sass, slim
 
 ### Dependencies
 
@@ -76,4 +76,4 @@ For various modules to work you may need to install additional dependencies:
 
 * coffeescript - `npm install -g coffee-script` - see https://github.com/jashkenas/coffee-script/
 * javascript - install jsl binary - see http://www.javascriptlint.com/download.htm
-* haml & sass - `gem install haml` `gem install sass`
+* haml & sass & slim - `gem install haml sass slim`
