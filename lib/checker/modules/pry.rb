@@ -4,34 +4,18 @@ module Checker
 
       private
       def check_one file
-        [check_for_binding_pry(file), check_for_binding_remote_pry(file)].all_true?
+        results = [check_for_binding_pry(file), check_for_binding_remote_pry(file)].select { |o| o.to_s.size > 0 }
+        show_output(results.empty?)
+        print results.map{ |r| "#{r}\n"}.join
+        results.empty?
       end
 
       def check_for_binding_pry(file)
-        result = `grep -n "binding\\.pry" #{file}`.chomp
-
-        unless result.empty?
-          puts " pry -> FAIL, ".red
-          puts result
-        else
-          print " pry -> OK, ".green
-        end
-
-        result.empty?
+        `grep -n "binding\\.pry" #{file}`.chomp
       end
 
       def check_for_binding_remote_pry(file)
-        result = `grep -n "binding\\.remote_pry" #{file}`.chomp
-
-        unless result.empty?
-          puts " remote_pry -> FAIL".red
-          puts result
-        else
-          print " remote_pry -> OK".green
-        end
-        puts ""
-
-        result.empty?
+        `grep -n "binding\\.remote_pry" #{file}`.chomp
       end
     end
   end
