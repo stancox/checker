@@ -2,8 +2,8 @@ module Checker
   module Modules
     class Base < Struct.new(:files)
       def check
-        print_module_header
         check_files_existing or return true
+        print_module_header
         check_executable or return true
         check_all_files
         valid?
@@ -16,7 +16,7 @@ module Checker
       private
 
       def print_module_header
-        color "[ #{name} ]\n", :light_blue
+        color "[ #{name} - #{files_to_check.size} files ]\n", :light_blue
       end
 
       def dependency_message
@@ -55,7 +55,7 @@ module Checker
       def check_all_files
         with_checker_cache do
           @results = files_to_check.map do |file_name|
-            color "Checking #{file_name}...", :yellow
+            color "  Checking #{file_name}...", :yellow
             check_one_file(file_name)
           end
         end
