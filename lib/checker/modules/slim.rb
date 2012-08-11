@@ -8,7 +8,7 @@ module Checker
       end
 
       def check_for_executable
-        command("slimrb -v", :use_bundler => true, :show_output => false, :append => ">> /dev/null 2>&1")
+        silent_command("slimrb -v")
       end
 
       def dependency_message

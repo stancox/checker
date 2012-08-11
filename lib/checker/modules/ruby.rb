@@ -4,7 +4,7 @@ module Checker
       extensions 'rb'
       private
       def check_one(file)
-        command("ruby -c #{file}", :append => ">> /dev/null")
+        plain_command("ruby -c #{file}", :append => ">> /dev/null")
       end
     end
   end

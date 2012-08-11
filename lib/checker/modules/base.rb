@@ -77,23 +77,19 @@ module Checker
       end
 
       def plain_command(cmd, options = {})
-        exitstatus = system(cmd)
+        cmd = parse_command(cmd, options)
+        exitstatus = execute(cmd)
         show_output(exitstatus, options)
         exitstatus
       end
 
-      def command(cmd, options = {})
-        if options[:use_bundler] == true
-          if use_bundler?
-            cmd = "bundle exec #{cmd}"
-          end
-        end
-
-        cmd = rvm_command(cmd) if use_rvm?
-        cmd << " #{options[:append]}" if options[:append]
-        exitstatus = execute(cmd)
-        show_output(exitstatus, options)
-        exitstatus
+      def silent_command(cmd, options = {})
+        options = {
+          :bundler => true,
+          :append => "> /dev/null 2>&1"
+        }.merge(options)
+        cmd = parse_command(cmd, options)
+        execute(cmd)
       end
 
       def show_output(exitstatus, options = {})
@@ -110,6 +106,13 @@ module Checker
         system(cmd)
       end
 
+      def parse_command command, options
+        connand = bundler_command(command) if use_bundler? && options[:bundler]
+        command = rvm_command(command) if use_rvm?
+        command << " #{options[:append]}" if options[:append]
+        command
+      end
+
       def color(str, color)
         print str.colorize(color) if str.length > 0
       end
@@ -122,17 +125,21 @@ module Checker
         File.exists?("Gemfile.lock")
       end
 
-      def use_rvm?
-        File.exists?(".rvmrc") && File.exists?(rvm_shell)
+      def bundler_command(command)
+        "bundle exec #{command}"
       end
 
-      def rvm_shell
-        File.join(ENV.fetch('rvm_path', ''), 'bin/rvm-shell')
+      def use_rvm?
+        File.exists?(".rvmrc") && File.exists?(rvm_shell)
       end
 
       def rvm_command(command)
         rvm_version = `echo $rvm_ruby_string`.chomp
         "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
+      end
+
+      def rvm_shell
+        File.join(ENV.fetch('rvm_path', ''), 'bin/rvm-shell')
       end
 
       def with_checker_cache

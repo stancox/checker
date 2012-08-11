@@ -8,7 +8,7 @@ module Checker
       end
 
       def check_for_executable
-        command('coffee -v', :show_output => false, :append => ">> /dev/null 2>&1")
+        silent_command('coffee -v', :bundler => false)
       end
 
       def dependency_message

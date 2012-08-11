@@ -8,7 +8,7 @@ module Checker
       end
 
       def check_for_executable
-        command('jsl -help:conf', :show_output => false, :append => ">> /dev/null 2>&1")
+        silent_command('jsl -help:conf', :bundler => false)
       end
 
       def dependency_message
