@@ -4,7 +4,7 @@ module Checker
       extensions 'scss', 'sass'
       private
       def check_one(file)
-        plain_command("sass #{file}", :bundler => true, :append => ">> /dev/null")
+        plain_command("sass #{file}")
       end
 
       def check_for_executable

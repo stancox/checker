@@ -13,7 +13,7 @@ module Checker
           puts e
           false
         end
-        show_output(ret)
+        show_status(ret)
         ret
       end
     end

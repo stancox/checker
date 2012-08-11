@@ -4,18 +4,15 @@ module Checker
 
       private
       def check_one file
-        results = [check_for_binding_pry(file), check_for_binding_remote_pry(file)].select { |o| o.to_s.size > 0 }
-        show_output(results.empty?)
-        print results.map{ |r| "#{r}\n"}.join
-        results.empty?
+        [check_for_binding_pry(file), check_for_binding_remote_pry(file)].all_true?
       end
 
       def check_for_binding_pry(file)
-        `grep -n "binding\\.pry" #{file}`.chomp
+        !plain_command("grep -n \"binding\\.pry\" #{file}", :bundler => false)
       end
 
       def check_for_binding_remote_pry(file)
-        `grep -n "binding\\.remote_pry" #{file}`.chomp
+        !plain_command("grep -n \"binding\\.remote_pry\" #{file}", :bundler => false)
       end
     end
   end

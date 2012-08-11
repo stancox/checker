@@ -56,7 +56,10 @@ module Checker
         with_checker_cache do
           @results = files_to_check.map do |file_name|
             color "  Checking #{file_name}...", :yellow
-            check_one_file(file_name)
+            result = check_one_file(file_name)
+            show_status(result)
+            flush_or_forget_output(result)
+            result
           end
         end
       end
@@ -78,39 +81,44 @@ module Checker
 
       def plain_command(cmd, options = {})
         cmd = parse_command(cmd, options)
-        exitstatus = execute(cmd)
-        show_output(exitstatus, options)
-        exitstatus
+        execute(cmd)
       end
 
       def silent_command(cmd, options = {})
-        options = {
-          :bundler => true,
-          :append => "> /dev/null 2>&1"
-        }.merge(options)
+        options = { :output => false }.merge(options)
         cmd = parse_command(cmd, options)
         execute(cmd)
       end
 
-      def show_output(exitstatus, options = {})
-        unless options[:show_output] == false
-          if exitstatus
-            puts " [OK]".green
-          else
-            puts " [FAIL]".red
-          end
+      def flush_or_forget_output(success)
+        unless success
+          print @buffer.to_s
+        end
+        @buffer = ""
+      end
+
+      def show_status(success)
+        if success
+          puts " [OK]".green
+        else
+          puts " [FAIL]".red
         end
       end
 
       def execute(cmd)
-        system(cmd)
+        io = IO.popen(cmd)
+        Process.wait(io.pid)
+        @buffer ||= ""
+        @buffer << io.read
+        $?.success?
       end
 
       def parse_command command, options
-        connand = bundler_command(command) if use_bundler? && options[:bundler]
+        options = { :bundler => true, :output => true }.merge(options)
+        command = bundler_command(command) if use_bundler? && options[:bundler]
         command = rvm_command(command) if use_rvm?
-        command << " #{options[:append]}" if options[:append]
-        command
+        command << " > /dev/null" unless options[:output]
+        "#{command} 2>&1"
       end
 
       def color(str, color)
