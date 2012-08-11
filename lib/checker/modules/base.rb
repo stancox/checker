@@ -58,7 +58,7 @@ module Checker
             color "  Checking #{file_name}...", :yellow
             result = check_one_file(file_name)
             show_status(result)
-            flush_or_forget_output(result)
+            flush_and_forget_output(result)
             result
           end
         end
@@ -90,10 +90,8 @@ module Checker
         execute(cmd)
       end
 
-      def flush_or_forget_output(success)
-        unless success
-          print @buffer.to_s
-        end
+      def flush_and_forget_output(success)
+        print @buffer.to_s unless success
         @buffer = ""
       end
 
