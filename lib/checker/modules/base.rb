@@ -110,7 +110,11 @@ module Checker
         Process.wait(io.pid)
         @buffer ||= ""
         @buffer << io.read
-        $?.success?
+        success?
+      end
+
+      def success?
+        $? && $?.success?
       end
 
       def parse_command command, options

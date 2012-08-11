@@ -19,11 +19,8 @@ module Checker
       end
 
       # ignore exit status 1 - warnings
-      def plain_command cmd, options={}
-        system(cmd)
-        exitstatus = $?.exitstatus == 0 || $?.exitstatus == 1
-        show_output(exitstatus, options)
-        exitstatus
+      def success?
+        $? && ($?.exitstatus == 0 || $?.exitstatus == 1)
       end
     end
   end
