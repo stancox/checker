@@ -13,6 +13,18 @@ module Checker
         @results.all_true?
       end
 
+      def files_to_check
+        @files_to_check ||= begin
+          if self.class.extensions.any?
+            self.files.select { |f|
+              self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
+            }
+          else
+            self.files
+          end
+        end
+      end
+
       private
 
       def print_module_header
@@ -38,18 +50,6 @@ module Checker
 
       def check_for_executable
         true
-      end
-
-      def files_to_check
-        @files_to_check ||= begin
-          if self.class.extensions.any?
-            self.files.select { |f|
-              self.class.extensions.map { |ex| f.ends_with?(".#{ex}") }.any?
-            }
-          else
-            self.files
-          end
-        end
       end
 
       def check_all_files

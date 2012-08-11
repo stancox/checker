@@ -21,13 +21,18 @@ module Checker
           exit 1
         end
 
-        checked = []
+        module_instances = []
         files = modified_files
         modules.each do |mod|
           klass = "Checker::Modules::#{mod.downcase.capitalize}".constantize
-          checked << klass.new(files.dup).check
+          module_instances << klass.new(files.dup)
         end
-        exit (checked.all_true? ? 0 : 1)
+
+        files_checked = module_instances.map(&:files_to_check).flatten.uniq
+        puts "[ CHECKER #{Checker::VERSION} - #{files_checked.size} files ]".light_blue
+
+        results = module_instances.map(&:check)
+        exit (results.all_true? ? 0 : 1)
       end
 
       private

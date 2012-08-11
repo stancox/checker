@@ -2,6 +2,7 @@ require 'colorize'
 require 'digest/md5'
 
 require 'checker/core_ext'
+require 'checker/version'
 
 require "checker/modules/base"
 require "checker/modules/ruby"
