@@ -34,7 +34,7 @@ fi
 echo ":checkered_flag:" >> $1
 ```
 
-you can also append the flag to the first line of commit message, by changing last line with:
+you can also prepend the flag to the first line of commit message, by changing last line with:
 
 ``` bash
 text=`echo -n ':checkered_flag: '; cat $1`
