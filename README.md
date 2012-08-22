@@ -34,6 +34,13 @@ fi
 echo ":checkered_flag:" >> $1
 ```
 
+you can also append the flag to the first line of commit message, by changing last line with:
+
+``` bash
+text=`echo -n ':checkered_flag: '; cat $1`
+echo $text > $1
+```
+
 #### pre-commit hook
 To just check your source code every time you commit, add to your `.git/hooks/pre-commit` line:
 
