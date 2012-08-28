@@ -140,11 +140,11 @@ module Checker
       end
 
       def use_rvm?
-        File.exists?(".rvmrc") && File.exists?(rvm_shell)
+        File.exists?(".rvmrc") || File.exists?(rvm_shell)
       end
 
       def rvm_command(command)
-        rvm_version = `echo $rvm_ruby_string`.chomp
+        rvm_version = ENV.fetch('RUBY_VERSION')
         "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
       end
 
