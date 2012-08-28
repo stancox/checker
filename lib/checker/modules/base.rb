@@ -140,7 +140,7 @@ module Checker
       end
 
       def use_rvm?
-        File.exists?(".rvmrc") || File.exists?(rvm_shell)
+        File.exists?(rvm_shell)
       end
 
       def rvm_command(command)
