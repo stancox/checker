@@ -1,3 +1,10 @@
+=== version 0.0.6 (released 2012-08-28)
+
+* better support for rvm users
+* adding slim support (thanks to Filip Skokan)
+* better check for files which are staged and modified
+* cleanups, speed and refactor
+
 === version 0.0.5 (released 2012-07-09)
 
 * depencendy message - if executable not found, 

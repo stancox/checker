@@ -1,13 +1,14 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path('../lib/checker/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'checker'
   s.version     = Checker::VERSION
-  s.date        = '2012-07-11'
+  s.date        = '2012-08-28'
   s.summary     = "Syntax checker for various files"
   s.description = "A collection of modules which every is designed to check syntax for specific files."
-  s.authors     = ["Jacek Jakubik"]
-  s.email       = 'jacek.jakubik@netguru.pl'
+  s.authors     = ["Jacek Jakubik", "Tomasz Pewiński"]
+  s.email       = ['jacek.jakubik@netguru.pl', 'tomasz.pewinski@netguru.pl']
   s.files       = `git ls-files`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
