@@ -13,7 +13,6 @@ module Checker
           puts e
           false
         end
-        show_status(ret)
         ret
       end
     end
