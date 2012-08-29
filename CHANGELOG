@@ -1,3 +1,8 @@
+=== version 0.6.1 (released 2012-08-29)
+
+* changed the version numbering
+* fixed rvm looking at wrong gemset if set (issue #9)
+
 === version 0.0.6 (released 2012-08-28)
 
 * better support for rvm users
