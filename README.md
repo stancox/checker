@@ -9,10 +9,11 @@ Checker is available in rubygems, so you just need to do:
 ```
 gem install checker
 ```
-If you are using bundler, you can add it to your project via `Gemfile` file (best to put it under `:development` group):
+If you are using bundler, you can add it to your project via `Gemfile` file (best to put it under `:development` group).
+Since checker is a command-line utility, there is no need to load it up in the application:
 ```ruby
 group :development do
-  gem 'checker'
+  gem 'checker', :required => false
 end
 ```
 
