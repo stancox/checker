@@ -1,3 +1,7 @@
+=== version 0.6.2 (released 2012-08-30)
+
+* quick fix for rbenv users
+
 === version 0.6.1 (released 2012-08-29)
 
 * changed the version numbering
