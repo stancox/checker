@@ -144,15 +144,15 @@ module Checker
       end
 
       def rvm_command(command)
-        rvm_path = ENV.fetch('rvm_path')
-        rvm_gem  = ENV.fetch('GEM_HOME')
+        rvm_path = ENV['rvm_path'].to_s
+        rvm_gem  = ENV['GEM_HOME'].to_s
         rvm_version = rvm_gem.gsub(Regexp.new(rvm_path + "/gems/"), "")
 
         "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
       end
 
       def rvm_shell
-        File.join(ENV.fetch('rvm_path'), 'bin/rvm-shell')
+        File.join(ENV['rvm_path'].to_s, 'bin/rvm-shell')
       end
 
       def with_checker_cache
