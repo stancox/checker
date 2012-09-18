@@ -3,7 +3,7 @@ module Checker
     class Haml < Base
       extensions 'haml'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         plain_command("haml --check #{file} >> /dev/null")
       end
 

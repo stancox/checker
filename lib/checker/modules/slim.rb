@@ -3,7 +3,7 @@ module Checker
     class Slim < Base
       extensions 'slim'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         plain_command("slimrb --compile #{file} >> /dev/null")
       end
 

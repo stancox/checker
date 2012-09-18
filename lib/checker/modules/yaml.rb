@@ -5,7 +5,7 @@ module Checker
     class Yaml < Base
       extensions 'yaml', 'yml'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         ret = begin
           YAML.load_file(file)
           true

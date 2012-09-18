@@ -3,8 +3,8 @@ module Checker
     class Sass < Base
       extensions 'scss', 'sass'
       private
-      def check_one(file)
-        plain_command("sass #{file}")
+      def check_one(file, opts = {})
+        plain_command("sass #{"--scss" if opts[:extension] == ".scss"} -c #{file}")
       end
 
       def check_for_executable

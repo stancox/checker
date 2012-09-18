@@ -3,7 +3,7 @@ module Checker
     class Coffeescript < Base
       extensions 'coffee'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         plain_command("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
       end
 

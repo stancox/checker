@@ -3,7 +3,7 @@ module Checker
     class Javascript < Base
       extensions 'js'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         plain_command("jsl -process #{file}")
       end
 

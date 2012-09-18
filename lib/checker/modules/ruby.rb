@@ -3,7 +3,7 @@ module Checker
     class Ruby < Base
       extensions 'rb'
       private
-      def check_one(file)
+      def check_one(file, opts = {})
         plain_command("ruby -c #{file}", :bundler => false)
       end
     end

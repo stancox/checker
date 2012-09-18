@@ -64,11 +64,16 @@ module Checker
         end
       end
 
+      def check_one(filename, options = {})
+        puts "Called from #{self.class} - extend me in here!"
+        false
+      end
+
       def check_one_file file_name
         checksum = ::Digest::MD5.hexdigest(file_name)
         puts file_name if debug_mode?
         checkout_file(file_name, checksum)
-        check_one(checkout_file_name(checksum))
+        check_one(checkout_file_name(checksum), :extension => File.extname(file_name))
       end
 
       def self.extensions *args

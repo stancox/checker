@@ -3,7 +3,7 @@ module Checker
     class Pry < Base
 
       private
-      def check_one file
+      def check_one(file, opts = {})
         [check_for_binding_pry(file), check_for_binding_remote_pry(file)].all_true?
       end
 
