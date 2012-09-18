@@ -146,9 +146,8 @@ module Checker
       end
 
       def rvm_command(command)
-        rvm_path = ENV['rvm_path'].to_s
         rvm_gem  = ENV['GEM_HOME'].to_s
-        rvm_version = rvm_gem.gsub(Regexp.new(rvm_path + "/gems/"), "")
+        rvm_version = rvm_gem.gsub(/.+rvm\/gems\//, "")
 
         "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
       end
