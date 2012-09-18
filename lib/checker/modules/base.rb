@@ -66,6 +66,7 @@ module Checker
 
       def check_one_file file_name
         checksum = ::Digest::MD5.hexdigest(file_name)
+        puts file_name if debug_mode?
         checkout_file(file_name, checksum)
         check_one(checkout_file_name(checksum))
       end
@@ -104,6 +105,7 @@ module Checker
       end
 
       def execute(cmd)
+        puts cmd if debug_mode?
         io = IO.popen(cmd)
         Process.wait(io.pid)
         @buffer ||= ""

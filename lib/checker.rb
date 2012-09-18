@@ -13,3 +13,11 @@ require "checker/modules/coffeescript"
 require "checker/modules/javascript"
 require "checker/modules/sass"
 require "checker/modules/yaml"
+
+def debug_mode?
+  ENV['CHECKER_DEBUG'].to_s == "1"
+end
+
+if debug_mode?
+  puts "Running checker with debug mode!".colorize(:yellow)
+end
