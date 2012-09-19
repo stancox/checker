@@ -7,7 +7,15 @@ module Checker
         if ARGV.size == 0
           modules = get_modules_to_check
         else
-          modules = ARGV.map(&:downcase)
+          if ARGV[0] == "install"
+            Checker::Installator.install!
+          elsif ARGV[0] == "help"
+            Checker::Helper.show_help!
+          elsif ARGV[0] == "modules"
+            Checker::Helper.show_modules!(self.available_modules)
+          else
+            modules = ARGV.map(&:downcase)
+          end
         end
 
         if modules.empty? || modules.include?('all')
@@ -35,7 +43,7 @@ module Checker
         exit (results.all_true? ? 0 : 1)
       end
 
-      private
+      protected
       def available_modules
         Checker::Modules.constants.map(&:to_s).map(&:downcase) - ['base']
       end

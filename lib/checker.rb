@@ -3,6 +3,8 @@ require 'digest/md5'
 
 require 'checker/core_ext'
 require 'checker/version'
+require 'checker/installator'
+require 'checker/helper'
 
 %w[base ruby haml slim pry coffeescript javascript sass yaml conflict].each do |mod|
   require "checker/modules/#{mod}"

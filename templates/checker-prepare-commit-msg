@@ -1,5 +1,5 @@
-#!/bin/bash
 
+#### Begin of checker script
 checker
 
 if [ $? == 1 ]; then
@@ -8,3 +8,4 @@ fi
 
 text=`echo -n ':checkered_flag: '; cat $1`
 echo $text > $1
+#### End of checker script
