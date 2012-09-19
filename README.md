@@ -60,12 +60,30 @@ chmod +x .git/hooks/pre-commit
 chmod +x .git/hooks/prepare-commit-msg
 ```
 
-Now checker will halt the commit if it finds problem with source code:
+Now checker will halt the commit if it finds problem with source code. Couple examples:
 
+#### pry
 ```
-Checking app/models/user.rb...
-FAIL app/models/user.rb found occurence of 'binding.pry'
+[ PRY - 1 files ]
+  Checking app/models/user.rb... [FAIL]
 46:binding.pry
+```
+
+#### conflict
+```
+[ CONFLICT - 1 files ]
+  Checking a.bad.scss... [FAIL]
+4:<<<<<<< Updated upstream
+30:>>>>>>> Stashed changes
+```
+
+#### sass
+```
+[ SASS - 1 files ]
+  Checking a.bad.scss... [FAIL]
+Syntax error: Invalid CSS after "qwe:": expected pseudoclass or pseudoelement, was "asd:"
+        on line 1 of .checker-cache/3cc74408b797b92e79207a64d97ae429
+  Use --trace for backtrace.
 ```
 
 ### Advanced usage
@@ -76,7 +94,28 @@ To check only specific filetypes on commit, use `git config` :
 git config checker.check 'ruby, haml, coffeescript'
 ```
 
-Available options are: ruby, haml, pry, coffeescript, sass, slim
+### Available options
+
+#### ruby
+Checks for correct syntax in ruby (.rb) files
+
+#### haml
+Checks for correct syntax in haml files
+
+#### pry
+Checks for any occurence of `binding.pry` or `binding.remote_pry`
+
+#### coffeescript
+Checks for correct syntax in coffeescript (.coffee) files
+
+#### sass
+Checks for correct syntax in sass and scss files
+
+#### slim
+Checks for correct syntax in slim files
+
+#### conflict
+Checks for any occurence of git conflicts when merging (looks for `<<<<<<< ` or `>>>>>>> `)
 
 ### Dependencies
 
