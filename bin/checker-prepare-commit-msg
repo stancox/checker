@@ -1,0 +1,10 @@
+#!/bin/bash
+
+checker
+
+if [ $? == 1 ]; then
+  exit 1
+fi
+
+text=`echo -n ':checkered_flag: '; cat $1`
+echo $text > $1
