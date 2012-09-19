@@ -21,10 +21,10 @@ After installing the gem please follow [Git hook](#git-hook) section for further
 
 ### Git hook
 
-#### prepare-commit-msg hook
-If you want every commit be appended with checker approved icon (:checkered_flag:) add to your `.git/hooks/prepare-commit-msg` following:
+All you need to do is type in `checker install` and it will automatically install the prepare-commit-msg hook
+to your current git project. It will look like this:
 
-``` bash
+```
 #!/bin/bash
 checker
 
@@ -32,33 +32,11 @@ if [ $? == 1 ]; then
   exit 1
 fi
 
-echo ":checkered_flag:" >> $1
-```
-
-you can also prepend the flag to the first line of commit message, by changing last line with:
-
-``` bash
 text=`echo -n ':checkered_flag: '; cat $1`
 echo $text > $1
 ```
 
-#### pre-commit hook
-To just check your source code every time you commit, add to your `.git/hooks/pre-commit` line:
-
-``` bash
-#!/bin/bash
-checker
-```
-
-Use only either one hook.
-
-
-Don't forget to make the hooks files executable:
-
-``` bash
-chmod +x .git/hooks/pre-commit
-chmod +x .git/hooks/prepare-commit-msg
-```
+If you don't want your commits be prepended by checkered flag you can remove two last lines from the prepare-commit-msg hook.
 
 Now checker will halt the commit if it finds problem with source code. Couple examples:
 
