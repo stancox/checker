@@ -1,3 +1,15 @@
+=== version 0.6.4 (released 2012-09-24)
+
+* fix a prepare-commit-msg hook so it won't destroy line endings in the commit message
+
+=== version 0.6.3 (released 2012-09-19)
+
+* installation script
+* fix two issues (#14, #15)
+* new module: detecting commiting git conflicts
+* added a debug mode
+* added help (command: checker help)
+
 === version 0.6.2 (released 2012-08-30)
 
 * quick fix for rbenv users
