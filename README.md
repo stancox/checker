@@ -25,7 +25,9 @@ All you need to do is type in `checker install` and it will automatically instal
 to your current git project. It will look like this:
 
 ```
-#!/bin/bash
+#!/bin/bash 
+ 
+#### Begin of checker script
 checker
 
 if [ $? == 1 ]; then
@@ -33,7 +35,8 @@ if [ $? == 1 ]; then
 fi
 
 text=`echo -n ':checkered_flag: '; cat $1`
-echo $text > $1
+echo "$text" > $1
+#### End of checker script
 ```
 
 If you don't want your commits be prepended by checkered flag you can remove two last lines from the prepare-commit-msg hook.
