@@ -57,9 +57,15 @@ module Checker
           @results = files_to_check.map do |file_name|
             color "  Checking #{file_name}...", :yellow
             result = check_one_file(file_name)
-            show_status(result)
-            flush_and_forget_output(result)
-            result
+            if result.is_a?(Hash)
+              show_status(result[:exitstatus])
+              flush_and_forget_output(result[:exitstatus])
+              result[:success]
+            else
+              show_status(result)
+              flush_and_forget_output(result)
+              result
+            end
           end
         end
       end
@@ -101,11 +107,23 @@ module Checker
         @buffer = ""
       end
 
+      def print_success_message
+        puts " [OK]".green
+      end
+
+      def print_warning_message
+        puts " [WARNING]".magenta
+      end
+
+      def print_fail_message
+        puts " [FAIL]".red
+      end
+
       def show_status(success)
         if success
-          puts " [OK]".green
+          print_success_message
         else
-          puts " [FAIL]".red
+          print_fail_message
         end
       end
 
@@ -135,7 +153,7 @@ module Checker
       end
 
       def name
-        self.class.to_s.split('::').last.upcase
+        self.class.to_s.split('::').last.underscore.upcase
       end
 
       def use_bundler?

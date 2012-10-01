@@ -9,11 +9,36 @@ class CoreExt
     end
     constant
   end
+
+  def self.classify(underscored_word)
+    words = underscored_word.split("_")
+    words.each do |word|
+      word.capitalize!
+    end.join("")
+  end
+
+  def self.underscore(camel_cased_word)
+    word = camel_cased_word.to_s.dup
+    word.gsub!(/::/, '/')
+    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+    word.tr!("-", "_")
+    word.downcase!
+    word
+  end
 end
 
 class String
   def constantize
     CoreExt.constantize(self)
+  end
+
+  def classify
+    CoreExt.classify(self)
+  end
+
+  def underscore
+    CoreExt.underscore(self)
   end
 
   def ends_with?(patt)

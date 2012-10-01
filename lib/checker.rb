@@ -6,7 +6,7 @@ require 'checker/version'
 require 'checker/installator'
 require 'checker/helper'
 
-%w[base ruby haml slim pry coffeescript javascript sass yaml conflict].each do |mod|
+%w[base ruby haml slim pry coffeescript javascript sass yaml conflict console_log].each do |mod|
   require "checker/modules/#{mod}"
 end
 

@@ -32,7 +32,7 @@ module Checker
         module_instances = []
         files = modified_files
         modules.each do |mod|
-          klass = "Checker::Modules::#{mod.downcase.capitalize}".constantize
+          klass = "Checker::Modules::#{mod.classify}".constantize
           module_instances << klass.new(files.dup)
         end
 
@@ -45,7 +45,7 @@ module Checker
 
       protected
       def available_modules
-        Checker::Modules.constants.map(&:to_s).map(&:downcase) - ['base']
+        Checker::Modules.constants.map(&:to_s).map(&:underscore) - ['base']
       end
 
       def check_module_availability(modules)
