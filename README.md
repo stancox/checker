@@ -30,7 +30,7 @@ to your current git project. It will look like this:
 #### Begin of checker script
 checker
 
-if [ $? == 1 ]; then
+if [ $? = 1 ]; then
   exit 1
 fi
 
