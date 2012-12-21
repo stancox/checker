@@ -2,7 +2,7 @@
 #### Begin of checker script
 checker
 
-if [ $? == 1 ]; then
+if [ $? = 1 ]; then
   exit 1
 fi
 
