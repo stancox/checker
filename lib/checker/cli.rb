@@ -58,7 +58,7 @@ module Checker
       end
 
       def get_modules_to_check
-        `git config checker.check`.chomp.split(",").map(&:strip)
+        Checker::Options.modules_to_check
       end
 
       def modified_files
