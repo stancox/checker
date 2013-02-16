@@ -69,13 +69,31 @@ Syntax error: Invalid CSS after "qwe:": expected pseudoclass or pseudoelement, w
 
 ### Advanced usage
 
-To check only specific filetypes on commit, use `git config` :
+You can specify checker behaviour for your project by changing the git config for checker.
+Available options are:
 
-``` bash
-git config checker.check 'ruby, haml, coffeescript'
-```
+* check
 
-### Available options
+  List of modules, seperated by comma, which checker will use. Defaults to all modules.
+  Example: `git config checker.check 'ruby, haml, coffeescript'`
+
+* commit-on-warning
+
+  Boolean value. If given true, checker will not commit when any module returns warning.
+  Defaults to false.
+  Example: `git config checker.commit-on-warning 'false'`
+
+* rails-for-sass
+
+  Boolean value. Will use rails runner to check for sass syntax using sprockets.
+  Works work rails >= 3.1. Defaults to true.
+  Example: `git config checker.rails-for-sass 'true'`
+
+
+As for 17.02.2013, `commit-on-warnings` and `rails-for-sass` are not yet working
+
+
+### Available modules
 
 #### ruby
 Checks for correct syntax in ruby (.rb) files
