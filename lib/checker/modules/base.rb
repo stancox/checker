@@ -177,14 +177,11 @@ module Checker
       end
 
       def rvm_command(command)
-        rvm_gem  = ENV['GEM_HOME'].to_s
-        rvm_version = rvm_gem.gsub(/.+rvm\/gems\//, "")
-
-        "#{rvm_shell} '#{rvm_version}' -c '#{command}'"
+        Checker::RVM.rvm_command(command)
       end
 
       def rvm_shell
-        File.join(ENV['rvm_path'].to_s, 'bin/rvm-shell')
+        Checker::RVM.rvm_shell
       end
 
       def with_checker_cache
