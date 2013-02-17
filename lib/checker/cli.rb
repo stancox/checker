@@ -9,6 +9,8 @@ module Checker
         else
           if ARGV[0] == "install"
             Checker::Installator.install!
+          elsif ARGV[0] == "reinstall"
+            Checker::Installator.reinstall!
           elsif ARGV[0] == "help"
             Checker::Helper.show_help!
           elsif ARGV[0] == "modules"

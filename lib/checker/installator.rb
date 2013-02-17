@@ -2,16 +2,35 @@ module Checker
   class Installator
     def self.template
       dir = File.dirname(__FILE__) + "/../.."
-      open(dir + "/templates/checker-prepare-commit-msg").read
+      temp = open(dir + "/templates/checker-prepare-commit-msg").read
+      temp.gsub(/CHECKER_COMMAND/, Checker::RVM.rvm_command("checker"))
     end
 
-    def self.install!
-      hooks_dir = "#{Dir.pwd}/.git/hooks"
+    def self.hooks_dir
+      "#{Dir.pwd}/.git/hooks"
+    end
 
+    def self.check_hook!
       unless Dir.exist?(hooks_dir)
         puts "Git Hooks dir not found. Are you sure you are inside project with git?"
         exit 1
       end
+    end
+
+    def self.reinstall!
+      check_hook!
+
+      pre_commit = "#{hooks_dir}/prepare-commit-msg"
+      if File.exists?(pre_commit)
+        puts "Removing current git precommit hook..."
+        File.delete(pre_commit)
+      end
+
+      install!
+    end
+
+    def self.install!
+      check_hook!
 
       pre_commit = "#{hooks_dir}/prepare-commit-msg"
       if File.exist?(pre_commit)

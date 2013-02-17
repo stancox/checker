@@ -23,3 +23,4 @@ end
 def debug(msg)
   puts "[DEBUG] - #{msg}".colorize(:yellow) if debug_mode?
 end
+

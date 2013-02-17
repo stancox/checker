@@ -1,6 +1,6 @@
 
 #### Begin of checker script
-checker
+CHECKER_COMMAND
 
 if [ $? = 1 ]; then
   exit 1

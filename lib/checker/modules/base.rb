@@ -173,7 +173,7 @@ module Checker
       end
 
       def rails_with_ap?
-        rails_project? && Dir.exists?("app/assets")
+        rails_project? && File.exists?("app/assets")
       end
 
       def rvm_command(command)

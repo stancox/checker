@@ -45,7 +45,7 @@ module Checker
 
       def create_dir(dir)
         debug("Creating dir #{dir}")
-        Dir.mkdir(dir) unless Dir.exists?(dir)
+        Dir.mkdir(dir) unless File.exists?(dir)
       end
 
       def checkout_file_name target
