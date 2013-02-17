@@ -18,3 +18,7 @@ end
 if debug_mode?
   puts "Running checker with debug mode!".colorize(:yellow)
 end
+
+def debug(msg)
+  puts "[DEBUG] - #{msg}".colorize(:yellow) if debug_mode?
+end
