@@ -168,6 +168,14 @@ module Checker
         File.exists?(rvm_shell)
       end
 
+      def rails_project?
+        use_bundler? && File.read("Gemfile.lock").match(/ rails /)
+      end
+
+      def rails_with_ap?
+        rails_project? && Dir.exists?("app/assets")
+      end
+
       def rvm_command(command)
         rvm_gem  = ENV['GEM_HOME'].to_s
         rvm_version = rvm_gem.gsub(/.+rvm\/gems\//, "")
@@ -185,6 +193,8 @@ module Checker
           yield if block_given?
         ensure
           `rm -rf .checker-cache > /dev/null 2>&1`
+          ## for sass check
+          `rm -rf app/assets/stylesheets/checker-cache*` if rails_with_ap?
         end
       end
 
