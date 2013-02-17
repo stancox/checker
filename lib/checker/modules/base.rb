@@ -57,15 +57,13 @@ module Checker
           @results = files_to_check.map do |file_name|
             color "  Checking #{file_name}...", :yellow
             result = check_one_file(file_name)
-            if result.is_a?(Hash)
-              show_status(result[:exitstatus])
-              flush_and_forget_output(result[:exitstatus])
-              result[:success]
-            else
-              show_status(result)
-              flush_and_forget_output(result)
-              result
+            unless result.is_a?(Hash)
+              color "module #{self.class} is not migrated to new output", :red
+              exit 1
             end
+            show_status(result[:exitstatus])
+            flush_and_forget_output(result[:exitstatus])
+            result[:success]
           end
         end
       end
