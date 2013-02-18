@@ -57,10 +57,6 @@ module Checker
           @results = files_to_check.map do |file_name|
             color "  Checking #{file_name}...", :yellow
             result = check_one_file(file_name)
-            unless result.is_a?(Hash)
-              color "module #{self.class} is not migrated to new output", :red
-              exit 1
-            end
             show_status(result[:exitstatus])
             flush_and_forget_output(result[:exitstatus])
             result[:success]
@@ -91,7 +87,7 @@ module Checker
 
       def plain_command(cmd, options = {})
         cmd = parse_command(cmd, options)
-        execute(cmd)
+        execute(cmd, options)
       end
 
       def silent_command(cmd, options = {})
@@ -125,13 +121,17 @@ module Checker
         end
       end
 
-      def execute(cmd)
+      def execute(cmd, options = {})
         debug("executing: #{cmd}")
         io = IO.popen(cmd)
         Process.wait(io.pid)
         @buffer ||= ""
         @buffer << io.read
-        success?
+        options[:return_boolean] ? success? : exitstatus
+      end
+
+      def exitstatus
+        $? && $?.exitstatus
       end
 
       def success?

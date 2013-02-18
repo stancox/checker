@@ -19,10 +19,6 @@ module Checker
         str
       end
 
-      def success?
-        $?.exitstatus
-      end
-
       def show_status(status)
         if status == 0
           print_success_message

@@ -4,7 +4,8 @@ module Checker
       extensions 'rb'
       private
       def check_one(file, opts = {})
-        plain_command("ruby -c #{file}", :bundler => false)
+        exitstatus = plain_command("ruby -c #{file}", :bundler => false)
+        {:exitstatus => exitstatus, :success => (exitstatus == 0)}
       end
     end
   end

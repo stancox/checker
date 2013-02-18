@@ -4,7 +4,8 @@ module Checker
       extensions 'slim'
       private
       def check_one(file, opts = {})
-        plain_command("slimrb --compile #{file} >> /dev/null")
+        exitstatus = plain_command("slimrb --compile #{file} >> /dev/null")
+        {:exitstatus => exitstatus, :success => (exitstatus == 0)}
       end
 
       def check_for_executable

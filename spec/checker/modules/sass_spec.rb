@@ -5,7 +5,7 @@ describe Checker::Modules::Sass do
     files = ['a.rb', 'b.js.erb', 'c.r', 'd.yml', 'e.yaml', 'f.coffee', 'g.haml', 'h.js', 'i.scss', 'j.sass']
     mod = Checker::Modules::Sass.new(files)
     mod.stub(:check_for_executable).and_return(true)
-    mod.stub(:check_one_file).and_return(true)
+    mod.stub(:check_one_file).and_return({:exitstatus => 0})
     mod.should_receive(:check_one_file).with('j.sass')
     mod.should_receive(:check_one_file).with('i.scss')
     mod.should_not_receive(:check_one_file).with('h.js')
@@ -19,12 +19,15 @@ describe Checker::Modules::Sass do
     mod.check 
   end
 
-  context "different extensions" do
+  context "normal check" do
+    before do
+      Checker::Options.stub(:use_rails_for_sass).and_return(false)
+    end
     it "gives proper command to sass module while checking .sass files" do
       files = ["a.sass"]
       mod = Checker::Modules::Sass.new(files)
       mod.stub(:check_for_executable).and_return(true)
-      mod.should_receive(:plain_command).with("sass  -c .checker-cache/69cb154f5eeff19216d2879872ba6569")
+      mod.should_receive(:plain_command).with("sass  -c .checker-cache/69cb154f5eeff19216d2879872ba6569").and_return(0)
       mod.check
     end
 
@@ -32,7 +35,7 @@ describe Checker::Modules::Sass do
       files = ["a.scss"]
       mod = Checker::Modules::Sass.new(files)
       mod.stub(:check_for_executable).and_return(true)
-      mod.should_receive(:plain_command).with("sass --scss -c .checker-cache/13dbadc466ed1f9bdfbb2b545e45d012")
+      mod.should_receive(:plain_command).with("sass --scss -c .checker-cache/13dbadc466ed1f9bdfbb2b545e45d012").and_return(0)
       mod.check
     end
   end

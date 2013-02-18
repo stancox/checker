@@ -13,11 +13,13 @@ module Checker
 
       def rails_check(file, opts)
         debug("Rails project detected") if rails_project?
-        plain_command(%(rails runner "Rails.application.assets.find_asset(\\"#{Dir.pwd}/#{file}\\").to_s"))
+        exitstatus = plain_command(%(rails runner "Rails.application.assets.find_asset(\\"#{Dir.pwd}/#{file}\\").to_s"))
+        {:exitstatus => exitstatus, :success => (exitstatus == 0)}
       end
 
       def normal_check(file, opts)
-        plain_command("sass #{"--scss" if opts[:extension] == ".scss"} -c #{file}")
+        exitstatus = plain_command("sass #{"--scss" if opts[:extension] == ".scss"} -c #{file}")
+        {:exitstatus => exitstatus, :success => (exitstatus == 0)}
       end
 
       def check_for_executable

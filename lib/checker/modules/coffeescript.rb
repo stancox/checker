@@ -4,7 +4,8 @@ module Checker
       extensions 'coffee'
       private
       def check_one(file, opts = {})
-        plain_command("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
+        exitstatus = plain_command("cat #{file} | egrep -v '^//=' | coffee -sc > /dev/null")
+        {:exitstatus => exitstatus, :success => (exitstatus == 0)}
       end
 
       def check_for_executable
